@@ -9,7 +9,7 @@ writeOutput(List,Filename):-
 	*/
 	
 	writeSolutions(Sorted),
-	open(output,append,Stream),
+	open('output.txt',append,Stream),
 	write(Stream,'TOTAL NUMBER OF SOLUTIONS (Latin or not Latin): '),
 	write(Stream,Length),
 	nl(Stream), nl(Stream),
@@ -18,12 +18,12 @@ writeOutput(List,Filename):-
 writeSolutions([]).
 writeSolutions([Solution|Rest]):-
 	(	checkAfter(Solution)
-		->	open(output,append,Stream),
+		->	open('output.txt',append,Stream),
 			write(Stream,Solution),nl(Stream),
 			close(Stream),
 			writeSolutions(Rest)
 		;
-			open(output,append,Stream),
+			open('output.txt',append,Stream),
 			nl(Stream),
 			write(Stream,'This is not a Latin Cube: '),nl(Stream),
 			write(Stream,Solution),nl(Stream),
@@ -32,5 +32,5 @@ writeSolutions([Solution|Rest]):-
 			
 	
 clear:-
-	open(output,write,Stream),
+	open('output.txt',write,Stream),
 	close(Stream).
