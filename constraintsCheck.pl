@@ -22,35 +22,36 @@ constraints(B,D,H):-
 	
 getBConstraints(Result):-
 	ones(Ones),
-	findall(Index,(b(I,J),Index is ((I-1)*4)+J),Indices),
-	length(Indices,Length),
-	(Length \== 0
-		->	sort(Indices,IndicesSorted),
+	(	current_predicate(b/2)
+		->
+			findall(Index,(b(I,J),Index is ((I-1)*4)+J),Indices),
+			sort(Indices,IndicesSorted),
 			convert(IndicesSorted,1,Ones,[],Result)
 		;
-			Result = []
+			Result = Ones
 	).
 	
 getDConstraints(Result):-
 	ones(Ones),
-	findall(Index,(d(I,J),Index is ((I-1)*4)+J),Indices),
-	length(Indices,Length),
-	(Length \== 0
-		->	sort(Indices,IndicesSorted),
+	(	current_predicate(d/2)
+		->
+			findall(Index,(d(I,J),Index is ((I-1)*4)+J),Indices),
+			sort(Indices,IndicesSorted),
 			convert(IndicesSorted,1,Ones,[],Result)
 		;
-			Result = []
+			Result = Ones
 	).
 	
 getHConstraints(Result):-
 	ones(Ones),
-	findall(Index,(h(I,J),Index is ((I-1)*4)+J),Indices),
-	length(Indices,Length),
-	(Length \== 0
-		->	sort(Indices,IndicesSorted),
+	(	current_predicate(h/2)
+		->
+			ones(Ones),
+			findall(Index,(h(I,J),Index is ((I-1)*4)+J),Indices),
+			sort(Indices,IndicesSorted),
 			convert(IndicesSorted,1,Ones,[],Result)
 		;
-			Result = []
+			Result = Ones
 	).
 	
 %%%%%%%%%%%%%%%%%%%%%%%

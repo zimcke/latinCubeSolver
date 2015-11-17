@@ -16,8 +16,17 @@ writeOutput(List,Filename):-
 	close(Stream),
 	*/
 
+	/*
+	date(Year,Month,Day),
+	time(H,M,S),
+	term2string(Year,Years),
+	term2string(Month,Months),
+	term2string(Day,Days),
+	*/
+	
+	X = output,
 	writeSolutions(Sorted),
-	open(output,append,Stream),
+	open(X,append,Stream),
 	write(Stream,'TOTAL NUMBER OF SOLUTIONS: '),
 	write(Stream,Length),
 	nl(Stream), nl(Stream),
