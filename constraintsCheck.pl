@@ -11,6 +11,17 @@ constraints_check(Problem):-
 	h_constraint(Problem,HConstraints),
 	d_constraint(Problem,DConstraints).
 	
+checkAfter([A1,A2,A3,A4,B2,B3,B4,B1,C3,C4,C1,C2,D4,D1,D2,D3,E2,E3,E4,E1,F3,F4,F1,F2,G4,G1,G2,G3,H1,H2,H3,H4,I3,I4,I1,I2,J4,J1,J2,J3,K1,K2,K3,K4,L2,L3,L4,L1,M4,M1,M2,M3,N1,N2,N3,N4,O2,O3,O4,O1,P3,P4,P1,P2]):-
+	ones(Ones),
+	Solution = [	[[A1,A2,A3,A4],[B2,B3,B4,B1],[C3,C4,C1,C2],[D4,D1,D2,D3]],
+					[[E2,E3,E4,E1],[F3,F4,F1,F2],[G4,G1,G2,G3],[H1,H2,H3,H4]],
+					[[I3,I4,I1,I2],[J4,J1,J2,J3],[K1,K2,K3,K4],[L2,L3,L4,L1]],
+					[[M4,M1,M2,M3],[N1,N2,N3,N4],[O2,O3,O4,O1],[P3,P4,P1,P2]]
+				],
+	b_constraint(Solution,Ones),
+	h_constraint(Solution,Ones),
+	d_constraint(Solution,Ones).
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Read constraints from constraints.pl   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
