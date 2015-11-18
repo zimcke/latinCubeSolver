@@ -1,5 +1,5 @@
 %% Latin Cube Solver
-%% Written by Zimcke Van de Staey and Tobias Verlinde
+%% Written in B-Prolog by Zimcke Van de Staey and Tobias Verlinde
 %%
 %% Use [main] to load the file in B-Prolog, next use the query "main." to run the program on all problems in problems.pl. 
 %% The output will appear in output.txt.

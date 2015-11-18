@@ -1,4 +1,13 @@
+%% Latin Cube Solver
+%% Written in B-Prolog by Zimcke Van de Staey and Tobias Verlinde
+%%
+%% writeOutput.pl will write all correct solutions (and first incorrect) to output.txt.
+%% Filename does not work yet. 
+%% "clear." will clear the output.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Write the List of Solutions					%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 writeOutput(List,Filename):-
 	sort(List,Sorted),
 	length(Sorted,Length),
@@ -15,6 +24,9 @@ writeOutput(List,Filename):-
 	nl(Stream), nl(Stream),
 	close(Stream).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Handles each solutions recursively			%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 writeSolutions([]).
 writeSolutions([Solution|Rest]):-
 	(	checkAfter(Solution)
@@ -29,7 +41,9 @@ writeSolutions([Solution|Rest]):-
 			close(Stream)
 	).
 			
-	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Clear output									%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 clear:-
 	open('output.txt',write,Stream),
 	close(Stream).

@@ -1,5 +1,5 @@
 %% Latin Cube Solver
-%% Written by Zimcke Van de Staey and Tobias Verlinde
+%% Written in B-Prolog by Zimcke Van de Staey and Tobias Verlinde
 %%
 %% Define all the Latin cube problems in the following formatting:
 %%	problem(

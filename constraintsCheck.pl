@@ -1,5 +1,5 @@
 %% Latin Cube Solver
-%% Written by Zimcke Van de Staey and Tobias Verlinde
+%% Written in B-Prolog by Zimcke Van de Staey and Tobias Verlinde
 %%
 %% constraintCheck.pl is responsible for checking the constraints of every problem, as well as checking the constraints of every solution.
 
