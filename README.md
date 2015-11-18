@@ -5,3 +5,4 @@ Solver for Latin Cubes written in B-Prolog, by Zimcke Van de Staey & Tobias Verl
 - Latin cube problems can be inserted in problems.pl
 - Output (solutions) will be added in output.txt
 - Run the solver by loading main.pl and then using the query "main."
+- Clear the output with "clear."
