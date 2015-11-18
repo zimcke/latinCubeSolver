@@ -1,3 +1,10 @@
+%% Latin Cube Solver
+%% Written by Zimcke Van de Staey and Tobias Verlinde
+%%
+%% Use [main] to load the file in B-Prolog, next use the query "main." to run the program on all problems in problems.pl. 
+%% The output will appear in output.txt.
+%% Use "clear." to clear output.txt.
+ 
 :- include(problems).
 :- include(writeOutput).
 :- include(constraintsCheck).
@@ -27,3 +34,6 @@ filename(Filename):-
 	append(New,String2,NNew),
 	append(NNew,[Code],NNNew),
 	append(NNNew,String1,Filename).
+		
+getProblems(Problems):-
+	findall(Problem, problem(Problem), Problems).

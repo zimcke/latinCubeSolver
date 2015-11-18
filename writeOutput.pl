@@ -24,7 +24,6 @@ writeSolutions([Solution|Rest]):-
 			writeSolutions(Rest)
 		;
 			open('output.txt',append,Stream),
-			nl(Stream),
 			write(Stream,'This is not a Latin Cube: '),nl(Stream),
 			write(Stream,Solution),nl(Stream),
 			close(Stream)

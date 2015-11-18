@@ -1,4 +1,15 @@
-
+%% Latin Cube Solver
+%% Written by Zimcke Van de Staey and Tobias Verlinde
+%%
+%% Define all the Latin cube problems in the following formatting:
+%%	problem(
+%%			[
+%%			[[1,2,3,4],[2,_,_,_],[3,_,_,_],[4,_,_,_]],
+%%			[[2,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]],
+%%			[[3,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]],
+%%			[[4,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]]
+%%			]
+%%			).
 
 problem(
 		[
@@ -8,7 +19,6 @@ problem(
 		[[4,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]]
 		]
 		).
-
 	
 problem(
 		[
@@ -28,6 +38,4 @@ problem(
 		]
 		).
 
-		
-getProblems(Problems):-
-	findall(Problem, problem(Problem), Problems).
+

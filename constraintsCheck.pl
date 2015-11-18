@@ -1,3 +1,8 @@
+%% Latin Cube Solver
+%% Written by Zimcke Van de Staey and Tobias Verlinde
+%%
+%% constraintCheck.pl is responsible for checking the constraints of every problem, as well as checking the constraints of every solution.
+
 :-include(constraints).
 
 ones(Ones):-
@@ -6,25 +11,20 @@ ones(Ones):-
 constraints_check(Problem):-
 	domain_problem(Problem),
 	constraints(BConstraints,HConstraints,DConstraints),
-	%write(BConstraints),nl,write(HConstraints),nl,write(DConstraints),nl,
 	b_constraint(Problem,BConstraints),
 	h_constraint(Problem,HConstraints),
 	d_constraint(Problem,DConstraints).
 	
-checkAfter([A1,A2,A3,A4,B2,B3,B4,B1,C3,C4,C1,C2,D4,D1,D2,D3,E2,E3,E4,E1,F3,F4,F1,F2,G4,G1,G2,G3,H1,H2,H3,H4,I3,I4,I1,I2,J4,J1,J2,J3,K1,K2,K3,K4,L2,L3,L4,L1,M4,M1,M2,M3,N1,N2,N3,N4,O2,O3,O4,O1,P3,P4,P1,P2]):-
+checkAfter(Solution):-
 	ones(Ones),
-	Solution = [	[[A1,A2,A3,A4],[B2,B3,B4,B1],[C3,C4,C1,C2],[D4,D1,D2,D3]],
-					[[E2,E3,E4,E1],[F3,F4,F1,F2],[G4,G1,G2,G3],[H1,H2,H3,H4]],
-					[[I3,I4,I1,I2],[J4,J1,J2,J3],[K1,K2,K3,K4],[L2,L3,L4,L1]],
-					[[M4,M1,M2,M3],[N1,N2,N3,N4],[O2,O3,O4,O1],[P3,P4,P1,P2]]
-				],
-	b_constraint(Solution,Ones),
-	h_constraint(Solution,Ones),
-	d_constraint(Solution,Ones).
+	formatSolution(Solution,SolutionFormatted),
+	b_constraint(SolutionFormatted,Ones),
+	h_constraint(SolutionFormatted,Ones),
+	d_constraint(SolutionFormatted,Ones).
 	
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Read constraints from constraints.pl   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Read constraints from constraints.pl as three lists of ones and zero's   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 constraints(B,D,H):-
 	getBConstraints(B),
@@ -178,9 +178,9 @@ d_constraint_2([[E1|R1],[E2|R2],[E3|R3],[E4|R4]]):-
 	all_different([E1,E2,E3,E4]),
 	d_constraint_2([R1,R2,R3,R4]).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Convert constraints        %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Convert constraints from list of indices to list with 1 and 0       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 convert([],_,[],List,ReverseList):-
 	reverse(List,ReverseList).
@@ -198,3 +198,15 @@ convert([Index|Rest],Counter,[_|L],List,ReverseList):-
 			convert([Index|Rest],NewCounter,L,[1|List],ReverseList)
 	).	
 
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Format solution: [] -> [ [[],[],[],[]],[[],[],[],[]]... ]				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+formatSolution([A1,A2,A3,A4,B2,B3,B4,B1,C3,C4,C1,C2,D4,D1,D2,D3,E2,E3,E4,E1,F3,F4,F1,F2,G4,G1,G2,G3,H1,H2,H3,H4,I3,I4,I1,I2,J4,J1,J2,J3,K1,K2,K3,K4,L2,L3,L4,L1,M4,M1,M2,M3,N1,N2,N3,N4,O2,O3,O4,O1,P3,P4,P1,P2],Formatted):-
+
+	Formatted = [	[[A1,A2,A3,A4],[B2,B3,B4,B1],[C3,C4,C1,C2],[D4,D1,D2,D3]],
+					[[E2,E3,E4,E1],[F3,F4,F1,F2],[G4,G1,G2,G3],[H1,H2,H3,H4]],
+					[[I3,I4,I1,I2],[J4,J1,J2,J3],[K1,K2,K3,K4],[L2,L3,L4,L1]],
+					[[M4,M1,M2,M3],[N1,N2,N3,N4],[O2,O3,O4,O1],[P3,P4,P1,P2]]
+				].

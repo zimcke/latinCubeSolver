@@ -18,6 +18,7 @@ $RECYCLE.BIN/
 *.lnk
 
 *.txt
+*.exe
 
 # =========================
 # Operating System Files
