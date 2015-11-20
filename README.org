@@ -1,0 +1,35 @@
+* Latin Cube Solver and Redundancy of Constraints Checker
+ 
+Solver for Latin Cubes written in B-Prolog, by Zimcke Van de Staey & Tobias Verlinde
+
+** Latin Cube Problems
+Latin cube problems can be inserted in problems.pl in the following formatting:
+#+BEGIN_EXAMPLE
+problem(
+  			[
+  			[[1,2,3,4],[2,_,_,_],[3,_,_,_],[4,_,_,_]],
+  			[[2,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]],
+  			[[3,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]],
+  			[[4,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]]
+  			]
+  			).
+#+END_EXAMPLE
+
+** Absent contraints
+Absent constraints can be inserted in constraints.pl. Each constraint is identified through a fact of one the fowllowing three forms:
+#+BEGIN_EXAMPLE
+w(i,j)  % width-constraint with pos(i,j)
+h(i,j)  % height-constraint with pos(i,j)
+d(i,j)  % depth-constraint with pos(i,j)
+#+END_EXAMPLE
+
+** Run
+There are two different running modes.
+1. To find all solutions for a number of Latin cube problems use the query =main.=
+2. To find the first inccorect solution for a number of Latin cube problems (the solution is not Latin) use the query =main2.=
+
+** Output
+- The output of the program will be added in =output.txt=
+- Clear the output file with the command =clear.=
+
+
