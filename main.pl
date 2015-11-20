@@ -9,34 +9,36 @@
 :- include(writeOutput).
 :- include(constraintsCheck).
 
+% CASE: Find all solutions to a Latin Cube problem
 main:-
 	getProblems(Problems),
 	filename(Filename),
 	main(Problems,Filename).
 	
+main([],_).
+main([Problem|OtherProblems],Filename):-
+	findall(Oplossing, solve(Problem, Oplossing), Oplossingen),
+	writeOutput(Oplossingen,Filename),
+	main(OtherProblems,Filename).
+
+% CASE: Find the first failed solution to a Latin Cube problem	
 main2:-
 	getProblems(Problems),
 	filename(Filename),
 	main2(Problems,Filename).
 
-main([],_).
-main([Problem|OtherProblems],Filename):-
-	%solve(Problem,Oplossing) && !checkAfter(Oplossing),
-	findall(Oplossing, solve(Problem, Oplossing), Oplossingen),
-	writeOutput(Oplossingen,Filename),
-	main(OtherProblems,Filename).
-	
 main2([],_).
 main2([Problem|OtherProblems],Filename):-
 	%findall(Oplossing, (solve2(Problem,Oplossing),length(Oplossing,L),L\==0),Oplossingen),
 	once((solve2(Problem,Oplossing),length(Oplossing,L),L\==0)),
 	writeOutput2(Oplossing,Filename),
 	main2(OtherProblems,Filename).
-		
+	
 solve(Problem, Oplossing):-
 	constraints_check(Problem),
     flatten(Problem,Oplossing), labeling(Oplossing).
 
+% Find the first solution that is not Latin cube	
 solve2(Problem,Oplossing):-
 	constraints_check(Problem),
 	flatten(Problem,Oplossing), labeling(Oplossing),
