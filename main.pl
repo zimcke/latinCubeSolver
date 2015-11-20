@@ -13,16 +13,37 @@ main:-
 	getProblems(Problems),
 	filename(Filename),
 	main(Problems,Filename).
+	
+main2:-
+	getProblems(Problems),
+	filename(Filename),
+	main2(Problems,Filename).
 
 main([],_).
 main([Problem|OtherProblems],Filename):-
+	%solve(Problem,Oplossing) && !checkAfter(Oplossing),
 	findall(Oplossing, solve(Problem, Oplossing), Oplossingen),
 	writeOutput(Oplossingen,Filename),
 	main(OtherProblems,Filename).
+	
+main2([],_).
+main2([Problem|OtherProblems],Filename):-
+	%findall(Oplossing, (solve2(Problem,Oplossing),length(Oplossing,L),L\==0),Oplossingen),
+	once((solve2(Problem,Oplossing),length(Oplossing,L),L\==0)),
+	writeOutput2(Oplossing,Filename),
+	main2(OtherProblems,Filename).
 		
 solve(Problem, Oplossing):-
 	constraints_check(Problem),
     flatten(Problem,Oplossing), labeling(Oplossing).
+
+solve2(Problem,Oplossing):-
+	constraints_check(Problem),
+	flatten(Problem,Oplossing), labeling(Oplossing),
+	(checkAfter(Oplossing)
+		-> 	Oplossing = []
+		;	Oplossing = Oplossing
+	).
 
 filename(Filename):-
 	date(Year,Month,Day),

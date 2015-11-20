@@ -24,6 +24,9 @@ writeOutput(List,Filename):-
 	nl(Stream), nl(Stream),
 	close(Stream).
 
+writeOutput2(List,Filename):-
+	writeSolutions2(List).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Handles each solutions recursively			%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,7 +42,16 @@ writeSolutions([Solution|Rest]):-
 			write(Stream,'This is not a Latin Cube: '),nl(Stream),
 			write(Stream,Solution),nl(Stream),
 			close(Stream)
+			%writeSolutions(Rest)
 	).
+	
+writeSolutions2([]).
+writeSolutions2(Solution):-
+			open('output.txt',append,Stream),
+			write(Stream,Solution),nl(Stream),
+			close(Stream).
+			%writeSolutions2(Rest).
+	
 			
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Clear output									%

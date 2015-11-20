@@ -14,7 +14,8 @@ constraints_check(Problem):-
 	b_constraint(Problem,BConstraints),
 	h_constraint(Problem,HConstraints),
 	d_constraint(Problem,DConstraints).
-	
+
+% returns true if and only if the Solution is latin	
 checkAfter(Solution):-
 	ones(Ones),
 	formatSolution(Solution,SolutionFormatted),
@@ -26,7 +27,7 @@ checkAfter(Solution):-
 % Read constraints from constraints.pl as three lists of ones and zero's   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-constraints(B,D,H):-
+constraints(B,H,D):-
 	getBConstraints(B),
 	getDConstraints(D),
 	getHConstraints(H).
