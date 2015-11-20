@@ -6,13 +6,13 @@ Solver for Latin Cubes written in B-Prolog, by Zimcke Van de Staey & Tobias Verl
 Latin cube problems can be inserted in problems.pl in the following formatting:
 #+BEGIN_EXAMPLE
 problem(
-  			[
-  			[[1,2,3,4],[2,_,_,_],[3,_,_,_],[4,_,_,_]],
-  			[[2,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]],
-  			[[3,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]],
-  			[[4,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]]
-  			]
-  			).
+ [
+ [[1,2,3,4],[2,_,_,_],[3,_,_,_],[4,_,_,_]],
+ [[2,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]],
+ [[3,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]],
+ [[4,_,_,_],[_,_,_,_],[_,_,_,_],[_,_,_,_]]
+ ]
+ ).
 #+END_EXAMPLE
 
 ** Absent contraints
