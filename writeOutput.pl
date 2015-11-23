@@ -48,7 +48,8 @@ writeSolutions([Solution|Rest]):-
 writeSolutions2([]).
 writeSolutions2(Solution):-
 			open('output.txt',append,Stream),
-			write(Stream,Solution),nl(Stream),
+			write(Stream, 'First solution that is not Latin: '),nl(Stream),
+			write(Stream,Solution),nl(Stream),nl(Stream),
 			close(Stream).
 			%writeSolutions2(Rest).
 	
