@@ -8,10 +8,10 @@
 ones(Ones):-
 	Ones = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1].
 	
-constraints_check(Problem,ConstraintSet):-
+constraints_check(Problem):-
 	domain_problem(Problem),
-	convertConstraints(ConstraintSet,WConstraints,HConstraints,DConstraints),
-	w_constraint(Problem,WConstraints),
+	constraints(BConstraints,HConstraints,DConstraints),
+	b_constraint(Problem,BConstraints),
 	h_constraint(Problem,HConstraints),
 	d_constraint(Problem,DConstraints).
 
@@ -19,7 +19,7 @@ constraints_check(Problem,ConstraintSet):-
 checkAfter(Solution):-
 	ones(Ones),
 	formatSolution(Solution,SolutionFormatted),
-	w_constraint(SolutionFormatted,Ones),
+	b_constraint(SolutionFormatted,Ones),
 	h_constraint(SolutionFormatted,Ones),
 	d_constraint(SolutionFormatted,Ones).
 	
@@ -27,38 +27,47 @@ checkAfter(Solution):-
 % Read constraints from constraints.pl as three lists of ones and zero's   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-convertConstraints(ConstraintSet,W,H,D):-
+constraints(B,H,D):-
+	getBConstraints(B),
+	getDConstraints(D),
+	getHConstraints(H).
+	
+getBConstraints(Result):-
 	ones(Ones),
-	getWConstraints(ConstraintSet,RemainingSet,Ones,[],W),
-	getHConstraints(RemainingSet,RemainingSet2,Ones,[],H),
-	getDConstraints(RemainingSet2,Ones,[],D).
-
-getWConstraints([h(I,J)|Other],[h(I,J)|Other],Ones,Indices,Result):-
+	(	current_predicate(b/2)
+		->
+			findall(Index,(b(I,J),Index is ((I-1)*4)+J),Indices),
 			sort(Indices,IndicesSorted),
-			convert(IndicesSorted,1,Ones,[],Result).
-
-getWConstraints([w(I,J)|Other],RemainingSet,Ones,Indices,Result):-
-			Index is ((I-1)*4)+J,
-			getWConstraints(Other,RemainingSet,Ones,[Index|Indices],Result).
-
-getHConstraints([d(I,J)|Other],[d(I,J)|Other],Ones,Indices,Result):-
-			sort(Indices, IndicesSorted),
-			convert(IndicesSorted,1,Ones,[],Result).
-			
-getHConstraints([h(I,J)|Other],RemainingSet,Ones,Indices,Result):-
-			Index is ((I-1)*4)+J,
-			getHConstraints(Other,RemainingSet,Ones,[Index|Indices],Result).
-			
-getDConstraints([],Ones,Indices,Result):-
+			convert(IndicesSorted,1,Ones,[],Result)
+		;
+			Result = Ones
+	).
+	
+getDConstraints(Result):-
+	ones(Ones),
+	(	current_predicate(d/2)
+		->
+			findall(Index,(d(I,J),Index is ((I-1)*4)+J),Indices),
 			sort(Indices,IndicesSorted),
-			convert(IndicesSorted,1,Ones,[],Result).
-			
-getDConstraints([d(I,J)|Other],Ones,Indices,Result):-
-			Index is ((I-1)*4)+J,
-			getDConstraints(Other,Ones,[Index|Indices],Result).
-			
+			convert(IndicesSorted,1,Ones,[],Result)
+		;
+			Result = Ones
+	).
+	
+getHConstraints(Result):-
+	ones(Ones),
+	(	current_predicate(h/2)
+		->
+			ones(Ones),
+			findall(Index,(h(I,J),Index is ((I-1)*4)+J),Indices),
+			sort(Indices,IndicesSorted),
+			convert(IndicesSorted,1,Ones,[],Result)
+		;
+			Result = Ones
+	).
+	
 %%%%%%%%%%%%%%%%%%%%%%%
-% Domain constraints  %
+% Domein constraints  %
 %%%%%%%%%%%%%%%%%%%%%%%
 	
 domain_problem(P) :-
@@ -71,7 +80,7 @@ domain_problem2([Elem|V]) :-
 	domain_problem2(V).
 
 %%%%%%%%%%%%%%%%%%%%%%%
-% Height constraints  %
+% Hoogte constraints  %
 %%%%%%%%%%%%%%%%%%%%%%%
 
 h_constraint([L1,L2,L3,L4], HConstraints):-
@@ -92,7 +101,8 @@ h_constraint_2([E1|L1],[E2|L2],[E3|L3],[E4|L4],[H|Rest]):-
 	),
 	
 	h_constraint_2(L1,L2,L3,L4,Rest).
-		
+	
+	
 h_constraint([L1,L2,L3,L4]):-
 	h_constraint(L1,L2,L3,L4).
 	
@@ -107,40 +117,40 @@ h_constraint_2([E1|L1],[E2|L2],[E3|L3],[E4|L4]):-
 	h_constraint_2(L1,L2,L3,L4).
 
 %%%%%%%%%%%%%%%%%%%%%%%%
-% Width constraints    %
+% Breedte constraints  %
 %%%%%%%%%%%%%%%%%%%%%%%%
 	
-w_constraint([],[]).	
-w_constraint([[P|R2]|R1],[WK1,WK2,WK3,WK4|Rest]):-
-	(	WK1 >= 1 ->
+b_constraint([],[]).	
+b_constraint([[P|R2]|R1],[BK1,BK2,BK3,BK4|Rest]):-
+	(	BK1 >= 1 ->
 		all_different(P)
 		;
-		WK1 == 0
+		BK1 == 0
 	),
-	w_constraint_2(R2,[WK2,WK3,WK4]),
-	w_constraint(R1,Rest).
+	b_constraint_2(R2,[BK2,BK3,BK4]),
+	b_constraint(R1,Rest).
 	
-w_constraint_2([],[]).
-w_constraint_2([P|R2],[W|Rest]):-
-	(	W >= 1 ->
+b_constraint_2([],[]).
+b_constraint_2([P|R2],[B|Rest]):-
+	(	B >= 1 ->
 		all_different(P)
 		;
-		W == 0
+		B == 0
 	),
-	w_constraint_2(R2,Rest).	
+	b_constraint_2(R2,Rest).	
 
-w_constraint([]).	
-w_constraint([[P|R2]|R1]):-
+b_constraint([]).	
+b_constraint([[P|R2]|R1]):-
 	all_different(P),
-	w_constraint_2(R2),
-	w_constraint(R1).
-w_constraint_2([]).
-w_constraint_2([P|R2]):-
+	b_constraint_2(R2),
+	b_constraint(R1).
+b_constraint_2([]).
+b_constraint_2([P|R2]):-
 	all_different(P),
-	w_constraint_2(R2).
+	b_constraint_2(R2).
 
 %%%%%%%%%%%%%%%%%%%%%%
-% Depth constraints  %
+% Diepte constraints %
 %%%%%%%%%%%%%%%%%%%%%%
 
 d_constraint([L1,L2,L3,L4],[D11,D12,D13,D14,D21,D22,D23,D24,D31,D32,D33,D34,D41,D42,D43,D44]):-
@@ -189,6 +199,7 @@ convert([Index|Rest],Counter,[_|L],List,ReverseList):-
 			convert([Index|Rest],NewCounter,L,[1|List],ReverseList)
 	).	
 
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Format solution: [] -> [ [[],[],[],[]],[[],[],[],[]]... ]				%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
