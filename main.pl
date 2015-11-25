@@ -2,43 +2,50 @@
 %% Written in B-Prolog by Zimcke Van de Staey and Tobias Verlinde
 %%
 %% Use [main] to load the file in B-Prolog, next use the query "main." to run the program on all problems in problems.pl. 
-%% The output will appear in output.txt.
-%% Use "clear." to clear output.txt.
+%% The output will appear in output.pl.
+%% Use "clear." to clear output.pl.
  
 :- include(problems).
 :- include(writeOutput).
 :- include(constraintsCheck).
 
+% CASE 1: Find all solutions to one or several Latin Cube problem
 main:-
 	getProblems(Problems),
 	filename(Filename),
 	main(Problems,Filename).
 	
-main2:-
-	getProblems(Problems),
-	filename(Filename),
-	main2(Problems,Filename).
-
 main([],_).
 main([Problem|OtherProblems],Filename):-
-	%solve(Problem,Oplossing) && !checkAfter(Oplossing),
 	findall(Oplossing, solve(Problem, Oplossing), Oplossingen),
 	writeOutput(Oplossingen,Filename),
 	main(OtherProblems,Filename).
+
+% CASE 2: Find the first failed solution to a Latin Cube problem
 	
-main2([],_).
-main2([Problem|OtherProblems],Filename):-
-	%findall(Oplossing, (solve2(Problem,Oplossing),length(Oplossing,L),L\==0),Oplossingen),
-	once((solve2(Problem,Oplossing),length(Oplossing,L),L\==0)),
-	writeOutput2(Oplossing,Filename),
-	main2(OtherProblems,Filename).
-		
+main2:-
+	getProblems([Problem|_]),
+	getConstraints(Constraints),
+	filename(Filename),
+	main2(Problem,Constraints,Filename).
+	
+main2(_,[],_).
+main2(Problem,[(ConstraintSet,Id)|OtherConstraints],Filename):-
+	(	once((solve2(Problem,ConstraintSet,Oplossing),length(Oplossing,L),L\==0)) 
+		->
+			writeOutput2(Oplossing,Id,Filename),
+			main2(Problem,OtherConstraints,Filename)
+		;
+			writeOutput3(Id,Filename),
+			main2(Problem,OtherConstraints,Filename)
+	).
+	
 solve(Problem, Oplossing):-
 	constraints_check(Problem),
     flatten(Problem,Oplossing), labeling(Oplossing).
 
-solve2(Problem,Oplossing):-
-	constraints_check(Problem),
+solve2(Problem,ConstraintSet,Oplossing):-
+	constraints_check(Problem,ConstraintSet),
 	flatten(Problem,Oplossing), labeling(Oplossing),
 	(checkAfter(Oplossing)
 		-> 	Oplossing = []
@@ -58,3 +65,6 @@ filename(Filename):-
 		
 getProblems(Problems):-
 	findall(Problem, problem(Problem), Problems).
+	
+getConstraints(Constraints):-
+	findall((ConstraintSet,Id), (constraints(ConstraintSet,Id)), Constraints).
