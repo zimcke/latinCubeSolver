@@ -47,6 +47,9 @@ solve(Problem, Oplossing):-
 solve2(Problem,ConstraintSet,Oplossing):-
 	constraints_check(Problem,ConstraintSet),
 	flatten(Problem,Oplossing), labeling(Oplossing),
+	/*open('debug.pl',append,Stream),
+	write(Stream,'solution( '),write(Stream,Oplossing),write(Stream,' )'),nl(Stream),
+	close(Stream)*/
 	(checkAfter(Oplossing)
 		-> 	Oplossing = []
 		;	Oplossing = Oplossing
@@ -68,3 +71,18 @@ getProblems(Problems):-
 	
 getConstraints(Constraints):-
 	findall((ConstraintSet,Id), (constraints(ConstraintSet,Id)), Constraints).
+
+/*	
+debugSolutions:-
+	findall(Solution,(solution(Solution)),Solutions),
+	debugSolutions(Solutions).
+	
+debugSolutions([]).
+debugSolutions([Solution|OtherSolutions]):-
+	(checkAfter(Solution)
+		-> Solution = []
+		;  open('notLatin.pl',append,Stream),
+			write(Stream,'solution( '),write(Stream,Solution),write(Stream,' )'),nl(Stream),
+			close(Stream)
+	),
+	debugSolutions(OtherSolutions).*/
