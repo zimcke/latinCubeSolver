@@ -10,7 +10,11 @@ constraints([h(1,1),h(1,2)], 'ODC2').
 constraints([h(1,1),h(1,2),h(1,3)], 'ODC3').
 constraints([h(1,1),h(1,2),h(1,3),h(1,4)], 'ODC4').
 constraints([h(1,1),h(1,2),h(1,3),h(1,4),h(2,1)], 'ODC5').
+
+
 constraints([h(1,1),h(1,2),h(1,3),h(1,4),h(2,1),h(2,2)], 'ODC6').
+
+
 constraints([h(1,1),h(1,2),h(1,3),h(1,4),h(2,1),h(2,2),h(2,3)], 'ODC7').
 constraints([h(1,1),h(1,2),h(1,3),h(1,4),h(2,1),h(2,2),h(2,3),h(2,4)], 'ODC8').
 constraints([h(1,1),h(1,2),h(1,3),h(1,4),h(2,1),h(2,2),h(2,3),h(2,4),h(3,1)], 'ODC9').
@@ -63,6 +67,9 @@ constraints([w(1,1),h(1,1),h(4,1)], '3 constraints case 10').
 constraints([w(1,1),h(1,1),h(1,2)], '3 constraints case 11').
 constraints([w(1,2),w(1,1),h(2,3)], '3 constraints case 12').
 constraints([w(1,2),w(1,1),h(1,3)], '3 constraints case 13').
-constraints([w(1,1),h(1,2),d(2,1)], '3 constraints case 14').*/
+*/
+constraints([w(1,1),h(1,2),d(2,1)], '3 constraints case 14').
 
-%constraints([w(4,4),h(4,4),d(4,4)], 'tester').
+/*
+constraints([w(4,4),h(4,4),d(4,4)], 'tester').
+*/

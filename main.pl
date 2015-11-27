@@ -31,28 +31,30 @@ main2:-
 	
 main2(_,[],_).
 main2(Problem,[(ConstraintSet,Id)|OtherConstraints],Filename):-
+	getProblems([SameProblem|_]),
 	(	once((solve2(Problem,ConstraintSet,Oplossing),length(Oplossing,L),L\==0)) 
 		->
 			writeOutput2(Oplossing,Id,Filename),
-			main2(Problem,OtherConstraints,Filename)
+			main2(SameProblem,OtherConstraints,Filename)
 		;
 			writeOutput3(Id,Filename),
-			main2(Problem,OtherConstraints,Filename)
+			main2(SameProblem,OtherConstraints,Filename)
 	).
 	
 solve(Problem, Oplossing):-
 	constraints_check(Problem),
     flatten(Problem,Oplossing), labeling(Oplossing).
 
-solve2(Problem,ConstraintSet,Oplossing):-
+solve2(Problem,ConstraintSet,Solution):-
 	constraints_check(Problem,ConstraintSet),
-	flatten(Problem,Oplossing), labeling(Oplossing),
-	/*open('debug.pl',append,Stream),
-	write(Stream,'solution( '),write(Stream,Oplossing),write(Stream,' )'),nl(Stream),
-	close(Stream)*/
-	(checkAfter(Oplossing)
-		-> 	Oplossing = []
-		;	Oplossing = Oplossing
+	flatten(Problem,Solution),
+	labeling(Solution),
+			open('debug.pl',append,Stream),
+			write(Stream,'solution( '),write(Stream,Solution),write(Stream,' )'),nl(Stream),
+			close(Stream),
+	(checkAfter(Solution)
+		-> 	Solution = []
+		;	Solution = Solution
 	).
 
 filename(Filename):-
