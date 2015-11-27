@@ -150,22 +150,22 @@ w_constraint_2(P,W):-
 d_constraint([],[]).	
 d_constraint([[[A1,A2,A3,A4],[B1,B2,B3,B4],[C1,C2,C3,C4],[D1,D2,D3,D4]],[[E1,E2,E3,E4],[F1,F2,F3,F4],[G1,G2,G3,G4],[H1,H2,H3,H4]],[[I1,I2,I3,I4],[J1,J2,J3,J4],[K1,K2,K3,K4],[L1,L2,L3,L4]],[[M1,M2,M3,M4],[N1,N2,N3,N4],[O1,O2,O3,O4],[P1,P2,P3,P4]]],[D11,D12,D13,D14,D21,D22,D23,D24,D31,D32,D33,D34,D41,D42,D43,D44]):-
 	d_constraint_2([A1,E1,I1,M1],D11),
-	d_constraint_2([A2,E2,I2,M2],D12),
-	d_constraint_2([A3,E3,I3,M3],D13),
-	d_constraint_2([A4,E4,I4,M4],D14),
-	d_constraint_2([B1,F1,J1,N1],D21),
+	d_constraint_2([B1,F1,J1,N1],D12),
+	d_constraint_2([C1,G1,K1,O1],D13),
+	d_constraint_2([D1,H1,L1,P1],D14),
+	d_constraint_2([A2,E2,I2,M2],D21),
 	d_constraint_2([B2,F2,J2,N2],D22),
-	d_constraint_2([B3,F3,J3,N3],D23),
-	d_constraint_2([B4,F4,J4,N4],D24),
-	d_constraint_2([C1,G1,K1,O1],D31),
-	d_constraint_2([C2,G2,K2,O2],D32),
+	d_constraint_2([C2,G2,K2,O2],D23),
+	d_constraint_2([D2,H2,L2,P2],D24),
+	d_constraint_2([A3,E3,I3,M3],D31),
+	d_constraint_2([B3,F3,J3,N3],D32),
 	d_constraint_2([C3,G3,K3,O3],D33),
-	d_constraint_2([C4,G4,K4,O4],D34),
-	d_constraint_2([D1,H1,L1,P1],D41),
-	d_constraint_2([D2,H2,L2,P2],D42),
-	d_constraint_2([D3,H3,L3,P3],D43),
+	d_constraint_2([D3,H3,L3,P3],D34),
+	d_constraint_2([A4,E4,I4,M4],D41),
+	d_constraint_2([B4,F4,J4,N4],D42),
+	d_constraint_2([C4,G4,K4,O4],D43),
 	d_constraint_2([D4,H4,L4,P4],D44).
-
+	
 d_constraint_2(P,D):-
 	(	D >= 1 ->
 		all_different(P)

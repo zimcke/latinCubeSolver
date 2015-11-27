@@ -49,9 +49,6 @@ solve2(Problem,ConstraintSet,Solution):-
 	constraints_check(Problem,ConstraintSet),
 	flatten(Problem,Solution),
 	labeling(Solution),
-			open('debug.pl',append,Stream),
-			write(Stream,'solution( '),write(Stream,Solution),write(Stream,' )'),nl(Stream),
-			close(Stream),
 	(checkAfter(Solution)
 		-> 	Solution = []
 		;	Solution = Solution

@@ -4,7 +4,7 @@
 
 % One Direction
 % h could be any direction t
-/*
+
 constraints([h(1,1)], 'ODC1').
 constraints([h(1,1),h(1,2)], 'ODC2').
 constraints([h(1,1),h(1,2),h(1,3)], 'ODC3').
@@ -67,9 +67,8 @@ constraints([w(1,1),h(1,1),h(4,1)], '3 constraints case 10').
 constraints([w(1,1),h(1,1),h(1,2)], '3 constraints case 11').
 constraints([w(1,2),w(1,1),h(2,3)], '3 constraints case 12').
 constraints([w(1,2),w(1,1),h(1,3)], '3 constraints case 13').
-*/
+
 constraints([w(1,1),h(1,2),d(2,1)], '3 constraints case 14').
 
-/*
+
 constraints([w(4,4),h(4,4),d(4,4)], 'tester').
-*/
