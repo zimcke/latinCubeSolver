@@ -19,8 +19,8 @@ ddirection(DConstraints):-
 generator(Constraints, AllConstraints, N):-
     length(Constraints, N),
 	subset2(Constraints,AllConstraints),
-	writeset(Constraints,N),
-	Constraints = [].
+	writeset(Constraints,N).
+	%Constraints = [].
 
 %Generates a list with all constraints in the right order
 allconstraints(AllConstraints):-
@@ -53,7 +53,7 @@ main(N):-
 	close(Stream),
 	allconstraints(AllConstraints),
 	findall(constraints(Cons), generator(Cons, AllConstraints, N), _).
-	
+	% call(generator), fail ; true)
 subset2([],[]).
 subset2([X|L],[X|S]) :-
     subset2(L,S).
