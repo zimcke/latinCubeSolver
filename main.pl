@@ -70,18 +70,3 @@ getProblems(Problems):-
 	
 getConstraints(Constraints):-
 	findall((ConstraintSet,Id), (constraints(ConstraintSet,Id)), Constraints).
-
-/*	
-debugSolutions:-
-	findall(Solution,(solution(Solution)),Solutions),
-	debugSolutions(Solutions).
-	
-debugSolutions([]).
-debugSolutions([Solution|OtherSolutions]):-
-	(checkAfter(Solution)
-		-> Solution = []
-		;  open('notLatin.pl',append,Stream),
-			write(Stream,'solution( '),write(Stream,Solution),write(Stream,' )'),nl(Stream),
-			close(Stream)
-	),
-	debugSolutions(OtherSolutions).*/

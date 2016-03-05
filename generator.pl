@@ -15,12 +15,28 @@ hdirection(HConstraints):-
 ddirection(DConstraints):-
 	findall(d(X,Y), d(X,Y), DConstraints).
 
+%Call this with N the number of missing constraints
+%Get all configurations of missing(N) in sets.pl regardless of isomorf configurations	
+%Be carefull because this will generate [48!/(N!.(48-N)!)] Prolog facts
+main(N):-
+	global_set(counter,0), %Counter for the different cases
+	open('sets.pl', write, Stream),
+	close(Stream),
+	allconstraints(AllConstraints),
+	call((generator(_,AllConstraints,N))),fail.	
+	
+% TODO !!! 	Go through schema to test if there are reduntant and isomorph sets of constraints generated
 %Generate a configuration of missing(N) and print it	
 generator(Constraints, AllConstraints, N):-
     length(Constraints, N),
 	subset2(Constraints,AllConstraints),
-	writeset(Constraints,N).
-	%Constraints = [].
+	
+	%check if there are 3 constraints in the set that work on the same element
+	(invalid(Constraints) 
+		-> fail
+		;
+		writeset(Constraints,N)).
+	%writeset(Constraints,N).
 
 %Generates a list with all constraints in the right order
 allconstraints(AllConstraints):-
@@ -41,24 +57,18 @@ writeset(Constraints,N):-
 	writeq(Stream, CaseName),
 	write(Stream, ').'),
 	nl(Stream),
-	close(Stream).
-
-%Call this with N the number of missing constraints
-%Get all configurations of missing(N) in sets.pl regardless of isomorf configurations	
-%Be carefull because this will generate [48!/(N!.(48-N)!)] Prolog facts
-main(N):-
-	global_set(counter,0),
-	%is_global(Counter,0),
-	open('sets.pl', write, Stream),
-	close(Stream),
-	allconstraints(AllConstraints),
-	findall(constraints(Cons), generator(Cons, AllConstraints, N), _).
-	% call(generator), fail ; true)
+	close(Stream).	
+	
 subset2([],[]).
 subset2([X|L],[X|S]) :-
     subset2(L,S).
 subset2(L, [_|S]) :-
     subset2(L,S).
+	
+invalid(Constraints):-
+	((member(w(X,Y),Constraints),member(d(Z,Y),Constraints),member(h(X,Z),Constraints)) 
+	  -> true
+	  ;  false).
 	
 getCaseName(N,CaseName):-
 	global_get(counter,Value),
